@@ -8,6 +8,7 @@ interface FavoritesContextType {
   addFavorite: (user: FavoriteUser) => void;
   removeFavorite: (id: number) => void;
   isFavorite: (id: number) => boolean;
+  reorderFavorites: (newOrder: FavoriteUser[]) => void;
 }
 
 const FavoritesContext = createContext<FavoritesContextType | undefined>(undefined);
@@ -61,11 +62,17 @@ export const FavoritesProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     return favorites.some((user) => user.id === id);
   };
 
+  const reorderFavorites = (newOrder: FavoriteUser[]) => {
+    setFavorites(newOrder);
+    localStorage.setItem('github-favorites', JSON.stringify(newOrder));
+  };
+
   const value = {
     favorites,
     addFavorite,
     removeFavorite,
     isFavorite,
+    reorderFavorites,
   };
 
   return (
