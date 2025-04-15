@@ -7,12 +7,14 @@ import FavoritesList from '../components/FavoritesList';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useToast } from '@/components/ui/use-toast';
 import { Github } from 'lucide-react';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 const Index = () => {
   const [user, setUser] = useState<GitHubUser | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const { toast } = useToast();
+  const isMobile = useIsMobile();
 
   const searchUser = async (username: string) => {
     setIsLoading(true);
@@ -46,8 +48,8 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background pb-8">
-      <header className="bg-primary text-primary-foreground p-4 shadow-md">
+    <div className="min-h-screen bg-background">
+      <header className="bg-primary text-primary-foreground p-4 shadow-md sticky top-0 z-10">
         <div className="container mx-auto flex items-center gap-3">
           <Github className="h-6 w-6" />
           <h1 className="text-2xl font-bold text-white font-grotesk">GitHub User Finder</h1>
@@ -59,6 +61,15 @@ const Index = () => {
             <Card>
               <CardHeader>
                 <CardTitle className="text-2xl font-grotesk ">Search for GitHub Users</CardTitle>
+      <main className="container mx-auto p-4">
+        <div className={`grid gap-6 ${isMobile ? 'grid-cols-1' : 'grid-cols-1 lg:grid-cols-3'}`}>
+          <div className={isMobile ? 'order-1' : 'lg:col-span-2 order-1'}>
+            <Card className="shadow-sm hover:shadow-md transition-all duration-300 mb-6">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-xl flex items-center gap-2">
+                  <Github className="h-5 w-5" />
+                  Search for GitHub Users
+                </CardTitle>
               </CardHeader>
               <CardContent>
                 <SearchBar onSearch={searchUser} isLoading={isLoading} />
@@ -66,13 +77,13 @@ const Index = () => {
             </Card>
             
             {isLoading && (
-              <div className="flex justify-center items-center h-60">
-                <div className="animate-spin rounded-full h-16 w-16 border-4 border-gray-300 border-t-accent"></div>
+              <div className="flex justify-center items-center p-8">
+                <div className="animate-spin rounded-full h-12 w-12 border-4 border-gray-300 border-t-accent"></div>
               </div>
             )}
             
             {error && !isLoading && (
-              <Card className="bg-destructive/10 border-destructive/30">
+              <Card className="bg-destructive/10 border-destructive/30 mb-6">
                 <CardContent className="pt-6 text-center">
                   <p className="text-destructive">{error}</p>
                 </CardContent>
@@ -80,17 +91,22 @@ const Index = () => {
             )}
             
             {user && !isLoading && !error && (
-              <UserCard user={user} />
+              <div className="animate-fade-in">
+                <UserCard user={user} />
+              </div>
             )}
           </div>
           
-          <div className="lg:col-span-1">
-            <FavoritesList />
+          <div className={isMobile ? 'order-2 mt-6' : 'order-2'}>
+            <div className="sticky top-20">
+              <FavoritesList />
+            </div>
           </div>
         </div>
       </main>
       
       {/* <footer className="bg-background border-t mt-auto py-4">
+      <footer className="bg-background border-t mt-12 py-4">
         <div className="container mx-auto text-center text-gray-500 text-sm">
           <p>GitHub User Finder &copy; {new Date().getFullYear()}</p>
           <p className="text-xs mt-1">
@@ -98,6 +114,7 @@ const Index = () => {
           </p>
         </div>
       </footer> */}
+      
     </div>
   );
 };
