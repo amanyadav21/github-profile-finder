@@ -32,8 +32,8 @@ const UserCard: React.FC<UserCardProps> = ({ user }) => {
   };
 
   return (
-    <Card className="overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
-      <CardHeader className="relative p-6">
+    <Card className="overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300">
+      <CardHeader className="relative p-6 pb-4">
         <div className="absolute top-4 right-4">
           <Button
             variant="ghost"
@@ -45,70 +45,70 @@ const UserCard: React.FC<UserCardProps> = ({ user }) => {
             onClick={handleFavoriteToggle}
             aria-label={favorited ? "Remove from favorites" : "Add to favorites"}
           >
-            <Heart className={cn("h-6 w-6", favorited ? "fill-current" : "")} />
+            <Heart className={cn("h-5 w-5", favorited ? "fill-current" : "")} />
           </Button>
         </div>
-        <div className="flex flex-col items-center text-center gap-4">
+        <div className="flex flex-col sm:flex-row items-center text-center sm:text-left gap-4">
           <img
             src={user.avatar_url}
             alt={`${user.login}'s avatar`}
-            className="rounded-full h-32 w-32 ring-4 ring-background shadow-xl"
+            className="rounded-full h-24 w-24 ring-2 ring-background shadow-md object-cover"
           />
           <div>
-            <h2 className="text-2xl font-bold">{user.name || user.login}</h2>
+            <h2 className="text-xl font-bold mt-2 sm:mt-0">{user.name || user.login}</h2>
             <a
               href={user.html_url}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-accent hover:underline inline-flex items-center gap-1"
+              className="text-accent hover:underline inline-flex items-center gap-1 text-sm"
             >
               @{user.login}
             </a>
           </div>
         </div>
       </CardHeader>
-      <CardContent className="p-6 space-y-6">
+      <CardContent className="p-6 pt-0 space-y-4">
         {user.bio && (
-          <p className="text-muted-foreground text-center border-b pb-4">{user.bio}</p>
+          <p className="text-muted-foreground text-sm border-b pb-4">{user.bio}</p>
         )}
         
-        <div className="grid grid-cols-3 gap-4 text-center">
-          <div className="bg-accent/5 rounded-lg p-4">
-            <div className="text-2xl font-bold text-accent">{user.public_repos}</div>
-            <div className="text-sm text-muted-foreground flex items-center justify-center gap-1">
-              <Book className="h-4 w-4" /> Repositories
+        <div className="grid grid-cols-3 gap-3 text-center">
+          <div className="bg-accent/5 rounded-lg p-3">
+            <div className="text-xl font-bold text-accent">{user.public_repos}</div>
+            <div className="text-xs text-muted-foreground flex items-center justify-center gap-1">
+              <Book className="h-3 w-3" /> Repos
             </div>
           </div>
-          <div className="bg-accent/5 rounded-lg p-4">
-            <div className="text-2xl font-bold text-accent">{user.followers}</div>
-            <div className="text-sm text-muted-foreground flex items-center justify-center gap-1">
-              <Users className="h-4 w-4" /> Followers
+          <div className="bg-accent/5 rounded-lg p-3">
+            <div className="text-xl font-bold text-accent">{user.followers}</div>
+            <div className="text-xs text-muted-foreground flex items-center justify-center gap-1">
+              <Users className="h-3 w-3" /> Followers
             </div>
           </div>
-          <div className="bg-accent/5 rounded-lg p-4">
-            <div className="text-2xl font-bold text-accent">{user.following}</div>
-            <div className="text-sm text-muted-foreground flex items-center justify-center gap-1">
-              <Users className="h-4 w-4" /> Following
+          <div className="bg-accent/5 rounded-lg p-3">
+            <div className="text-xl font-bold text-accent">{user.following}</div>
+            <div className="text-xs text-muted-foreground flex items-center justify-center gap-1">
+              <Users className="h-3 w-3" /> Following
             </div>
           </div>
         </div>
 
-        <div className="space-y-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
           {user.location && (
             <div className="flex items-center gap-2 text-muted-foreground">
-              <MapPin className="h-4 w-4" />
-              <span>{user.location}</span>
+              <MapPin className="h-4 w-4 shrink-0" />
+              <span className="truncate">{user.location}</span>
             </div>
           )}
           {user.company && (
             <div className="flex items-center gap-2 text-muted-foreground">
-              <Building className="h-4 w-4" />
-              <span>{user.company}</span>
+              <Building className="h-4 w-4 shrink-0" />
+              <span className="truncate">{user.company}</span>
             </div>
           )}
           {user.blog && (
             <div className="flex items-center gap-2 text-muted-foreground">
-              <LinkIcon className="h-4 w-4" />
+              <LinkIcon className="h-4 w-4 shrink-0" />
               <a
                 href={user.blog.startsWith('http') ? user.blog : `https://${user.blog}`}
                 target="_blank"
@@ -121,15 +121,15 @@ const UserCard: React.FC<UserCardProps> = ({ user }) => {
           )}
           {user.created_at && (
             <div className="flex items-center gap-2 text-muted-foreground">
-              <Calendar className="h-4 w-4" />
-              <span>Joined {format(new Date(user.created_at), 'MMMM yyyy')}</span>
+              <Calendar className="h-4 w-4 shrink-0" />
+              <span>Joined {format(new Date(user.created_at), 'MMM yyyy')}</span>
             </div>
           )}
         </div>
 
         <Button
           variant="default"
-          className="w-full mt-4"
+          className="w-full mt-2"
           asChild
         >
           <a href={user.html_url} target="_blank" rel="noopener noreferrer">
