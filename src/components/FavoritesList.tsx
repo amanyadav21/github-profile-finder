@@ -3,8 +3,9 @@ import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { Button } from './ui/button';
 import { useFavorites } from '../context/FavoritesContext';
-import { Heart, ExternalLink, GripVertical } from 'lucide-react';
+import { Heart, ExternalLink, GripVertical, MapPin, Calendar, LinkIcon } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { FavoriteUser } from '../types/GitHubUser';
 import {
   DndContext,
   closestCenter,
@@ -48,45 +49,51 @@ const SortableItem: React.FC<SortableItemProps> = ({ user, removeFavorite }) => 
       ref={setNodeRef}
       style={style}
       className={cn(
-        "bg-secondary/30 rounded-lg p-3 favorite-animation",
+        "bg-card shadow-sm border rounded-lg p-4 favorite-animation hover:shadow-md transition-all duration-200",
         isDragging && "opacity-50"
       )}
     >
       <div className="flex items-center gap-3">
         <button
-          className="cursor-grab touch-none"
+          className="cursor-grab touch-none hover:text-accent transition-colors"
           {...attributes}
           {...listeners}
         >
-          <GripVertical className="h-5 w-5 text-gray-400" />
+          <GripVertical className="h-5 w-5" />
         </button>
         <img
           src={user.avatar_url}
           alt={`${user.login}'s avatar`}
-          className="h-10 w-10 rounded-full"
+          className="h-12 w-12 rounded-full ring-2 ring-background"
         />
         <div className="flex-1 min-w-0">
-          <h3 className="font-medium truncate">{user.name || user.login}</h3>
-          <p className="text-sm text-gray-500 truncate">@{user.login}</p>
+          <h3 className="font-medium truncate text-foreground">{user.name || user.login}</h3>
+          <p className="text-sm text-muted-foreground truncate">@{user.login}</p>
         </div>
-        <div className="flex items-center space-x-2">
-          <a
-            href={user.html_url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-gray-500 hover:text-accent"
-            aria-label="View on GitHub"
-          >
-            <ExternalLink className="h-5 w-5" />
-          </a>
+        <div className="flex items-center gap-2">
           <Button
             variant="ghost"
             size="icon"
-            className="text-gray-500 hover:text-red-500"
+            className="text-muted-foreground hover:text-accent"
+            asChild
+          >
+            <a
+              href={user.html_url}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="View on GitHub"
+            >
+              <ExternalLink className="h-4 w-4" />
+            </a>
+          </Button>
+          <Button
+            variant="ghost"
+            size="icon"
+            className="text-muted-foreground hover:text-red-500"
             onClick={() => removeFavorite(user.id)}
             aria-label="Remove from favorites"
           >
-            <Heart className="h-5 w-5 fill-red-500" />
+            <Heart className="h-4 w-4 fill-current" />
           </Button>
         </div>
       </div>
