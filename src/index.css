@@ -1,5 +1,7 @@
-
+/* 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap');
+
 
 @tailwind base;
 @tailwind components;
@@ -36,6 +38,10 @@
     --ring: 222 47% 11%;
 
     --radius: 0.5rem;
+  
+    --font-grotesk: 'Space Grotesk', sans-serif;
+      
+        
   }
 
   * {
@@ -44,6 +50,77 @@
 
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+.favorite-transition {
+  @apply transition-transform duration-300 ease-in-out;
+}
+
+.favorite-transition:hover {
+  @apply scale-110;
+}
+
+.favorite-animation {
+  @apply animate-fade-in;
+} */
+
+
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 210 20% 98%;
+    --foreground: 222 47% 11%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+
+    --primary: 222 47% 11%;
+    --primary-foreground: 210 20% 98%;
+
+    --secondary: 220 13% 91%;
+    --secondary-foreground: 222 47% 11%;
+
+    --muted: 220 13% 91%;
+    --muted-foreground: 215 16% 47%;
+
+    --accent: 210 79% 46%;
+    --accent-foreground: 210 20% 98%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 210 20% 98%;
+
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 222 47% 11%;
+
+    --radius: 0.5rem;
+
+    --font-grotesk: 'Space Grotesk', sans-serif;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  .font-grotesk {
+    font-family: var(--font-grotesk);
   }
 }
 

@@ -50,7 +50,7 @@ const Index = () => {
       <header className="bg-primary text-primary-foreground p-4 shadow-md">
         <div className="container mx-auto flex items-center gap-3">
           <Github className="h-6 w-6" />
-          <h1 className="text-2xl font-bold text-white">GitHub User Finder</h1>
+          <h1 className="text-2xl font-bold text-white font-grotesk">GitHub User Finder</h1>
         </div>
       </header>
       <main className="container mx-auto px-4 py-8">
@@ -58,7 +58,7 @@ const Index = () => {
           <div className="lg:col-span-2 space-y-6">
             <Card>
               <CardHeader>
-                <CardTitle className="text-2xl">Search for GitHub Users</CardTitle>
+                <CardTitle className="text-2xl font-grotesk ">Search for GitHub Users</CardTitle>
               </CardHeader>
               <CardContent>
                 <SearchBar onSearch={searchUser} isLoading={isLoading} />

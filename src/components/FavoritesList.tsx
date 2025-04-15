@@ -48,7 +48,7 @@ const SortableItem: React.FC<SortableItemProps> = ({ user, removeFavorite }) => 
       ref={setNodeRef}
       style={style}
       className={cn(
-        "bg-secondary/30 rounded-lg p-3 favorite-animation",
+        "bg-green-100 /3 border border-black rounded-lg p-3 favorite-animation",
         isDragging && "opacity-50"
       )}
     >
@@ -58,7 +58,7 @@ const SortableItem: React.FC<SortableItemProps> = ({ user, removeFavorite }) => 
           {...attributes}
           {...listeners}
         >
-          <GripVertical className="h-5 w-5 text-gray-400" />
+          <GripVertical className="h-5 w-5 text-black" />
         </button>
         <img
           src={user.avatar_url}
@@ -74,7 +74,7 @@ const SortableItem: React.FC<SortableItemProps> = ({ user, removeFavorite }) => 
             href={user.html_url}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-gray-500 hover:text-accent"
+            className="text-gray-900 hover:text-accent"
             aria-label="View on GitHub"
           >
             <ExternalLink className="h-5 w-5" />
@@ -120,7 +120,7 @@ const FavoritesList: React.FC = () => {
   };
 
   return (
-    <Card className="h-full">
+    <Card className="h-full border-black rounded-xl">
       <CardHeader>
         <CardTitle className="text-2xl flex items-center gap-2">
           <Heart className="h-5 w-5 text-red-500" />
