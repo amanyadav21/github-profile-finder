@@ -120,9 +120,9 @@ const FavoritesList: React.FC = () => {
   };
 
   return (
-    <Card className="h-full">
-      <CardHeader>
-        <CardTitle className="text-2xl flex items-center gap-2">
+    <Card className="shadow-sm hover:shadow-md transition-all duration-300 h-auto">
+      <CardHeader className="pb-3">
+        <CardTitle className="text-xl flex items-center gap-2">
           <Heart className="h-5 w-5 text-red-500" />
           Favorite Users
         </CardTitle>
