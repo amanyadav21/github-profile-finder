@@ -48,7 +48,7 @@ const SortableItem: React.FC<SortableItemProps> = ({ user, removeFavorite }) => 
       ref={setNodeRef}
       style={style}
       className={cn(
-        "bg-secondary/30 rounded-lg p-3 favorite-animation",
+        "bg-green-100 /30 rounded-lg p-3 favorite-animation border-2 border-black",
         isDragging && "opacity-50"
       )}
     >
@@ -58,7 +58,7 @@ const SortableItem: React.FC<SortableItemProps> = ({ user, removeFavorite }) => 
           {...attributes}
           {...listeners}
         >
-          <GripVertical className="h-5 w-5 text-gray-400" />
+          <GripVertical className="h-5 w-5 text-gray-900" />
         </button>
         <img
           src={user.avatar_url}
@@ -69,7 +69,7 @@ const SortableItem: React.FC<SortableItemProps> = ({ user, removeFavorite }) => 
           <h3 className="font-medium truncate">{user.name || user.login}</h3>
           <p className="text-sm text-gray-500 truncate">@{user.login}</p>
         </div>
-        <div className="flex items-center space-x-2">
+        <div className="flex items-center space-x-5">
           <a
             href={user.html_url}
             target="_blank"
@@ -82,11 +82,11 @@ const SortableItem: React.FC<SortableItemProps> = ({ user, removeFavorite }) => 
           <Button
             variant="ghost"
             size="icon"
-            className="text-gray-500 hover:text-red-500"
+            className="text-gray-500 hover:text-red-500 border-2 border-black rounded-lg " 
             onClick={() => removeFavorite(user.id)}
             aria-label="Remove from favorites"
           >
-            <Heart className="h-5 w-5 fill-red-500" />
+            <Heart className="h-5 w-5 fill-red-500 transition-colors duration-200 cursor-pointer" />
           </Button>
         </div>
       </div>
@@ -120,7 +120,7 @@ const FavoritesList: React.FC = () => {
   };
 
   return (
-    <Card className="shadow-sm hover:shadow-md transition-all duration-300 h-auto">
+    <Card className="shadow-sm hover:shadow-md transition-all duration-300 h-auto bg-yellow-200">
       <CardHeader className="pb-3">
         <CardTitle className="text-xl flex items-center gap-2">
           <Heart className="h-5 w-5 text-red-500" />
