@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { GitHubUser } from '../types/GitHubUser';
 import SearchBar from '../components/SearchBar';
@@ -19,7 +18,7 @@ const Index = () => {
   const searchUser = async (username: string) => {
     setIsLoading(true);
     setError(null);
-    
+
     try {
       const response = await fetch(`https://api.github.com/users/${username}`);
       if (!response.ok) {
@@ -29,7 +28,7 @@ const Index = () => {
           throw new Error('Failed to fetch user data');
         }
       }
-      
+
       const userData = await response.json();
       setUser(userData);
     } catch (error) {
@@ -55,13 +54,8 @@ const Index = () => {
           <h1 className="text-2xl font-bold text-white font-grotesk">GitHub User Finder</h1>
         </div>
       </header>
+
       <main className="container mx-auto px-4 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          <div className="lg:col-span-2 space-y-6">
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-2xl font-grotesk ">Search for GitHub Users</CardTitle>
-      <main className="container mx-auto p-4">
         <div className={`grid gap-6 ${isMobile ? 'grid-cols-1' : 'grid-cols-1 lg:grid-cols-3'}`}>
           <div className={isMobile ? 'order-1' : 'lg:col-span-2 order-1'}>
             <Card className="shadow-sm hover:shadow-md transition-all duration-300 mb-6">
@@ -75,13 +69,13 @@ const Index = () => {
                 <SearchBar onSearch={searchUser} isLoading={isLoading} />
               </CardContent>
             </Card>
-            
+
             {isLoading && (
               <div className="flex justify-center items-center p-8">
                 <div className="animate-spin rounded-full h-12 w-12 border-4 border-gray-300 border-t-accent"></div>
               </div>
             )}
-            
+
             {error && !isLoading && (
               <Card className="bg-destructive/10 border-destructive/30 mb-6">
                 <CardContent className="pt-6 text-center">
@@ -89,14 +83,14 @@ const Index = () => {
                 </CardContent>
               </Card>
             )}
-            
+
             {user && !isLoading && !error && (
               <div className="animate-fade-in">
                 <UserCard user={user} />
               </div>
             )}
           </div>
-          
+
           <div className={isMobile ? 'order-2 mt-6' : 'order-2'}>
             <div className="sticky top-20">
               <FavoritesList />
@@ -104,17 +98,23 @@ const Index = () => {
           </div>
         </div>
       </main>
-      
-      {/* <footer className="bg-background border-t mt-auto py-4">
+
       <footer className="bg-background border-t mt-12 py-4">
         <div className="container mx-auto text-center text-gray-500 text-sm">
           <p>GitHub User Finder &copy; {new Date().getFullYear()}</p>
           <p className="text-xs mt-1">
-            Uses the <a href="https://docs.github.com/en/rest" target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">GitHub API</a>
+            Uses the{' '}
+            <a
+              href="https://docs.github.com/en/rest"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-accent hover:underline"
+            >
+              GitHub API
+            </a>
           </p>
         </div>
-      </footer> */}
-      
+      </footer>
     </div>
   );
 };

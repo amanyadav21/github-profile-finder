@@ -47,74 +47,70 @@ const SortableItem: React.FC<SortableItemProps> = ({ user, removeFavorite, isMob
   };
 
   return (
-    <li
-      ref={setNodeRef}
-      style={style}
-      className={cn(
-        "bg-green-100 /3 border border-black rounded-lg p-3 favorite-animation",
-        isDragging && "opacity-50",
-        "bg-card shadow-sm border rounded-lg favorite-animation",
-        isDragging ? "opacity-50 z-50 shadow-lg" : "hover:shadow-md",
-        "transition-all duration-200"
-      )}
+<li
+  ref={setNodeRef}
+  style={style}
+  className={cn(
+    "bg-green-100 /3 border border-black rounded-lg p-3 favorite-animation",
+    isDragging && "opacity-50",
+    "bg-card shadow-sm border rounded-lg favorite-animation",
+    isDragging ? "opacity-50 z-50 shadow-lg" : "hover:shadow-md",
+    "transition-all duration-200"
+  )}
+>
+  <div className="flex items-center gap-2 p-3">
+    <button
+      className="cursor-grab touch-none hover:text-accent transition-colors"
+      {...attributes}
+      {...listeners}
+      aria-label="Drag to reorder"
     >
-      <div className="flex items-center gap-2 p-3">
-        <button
-          className="cursor-grab touch-none hover:text-accent transition-colors"
-          {...attributes}
-          {...listeners}
-          aria-label="Drag to reorder"
-        >
-          <GripVertical className="h-4 w-4 text-muted-foreground" />
-        </button>
-        <img
-          src={user.avatar_url}
-          alt={`${user.login}'s avatar`}
-          className="h-8 w-8 rounded-full ring-1 ring-background object-cover"
-        />
-        <div className="flex-1 min-w-0">
-          <h3 className="font-medium truncate text-sm">{user.name || user.login}</h3>
-          <p className="text-xs text-muted-foreground truncate">@{user.login}</p>
-        </div>
-        <div className="flex items-center space-x-2">
-          <a
-            href={user.html_url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-gray-900 hover:text-accent"
-            aria-label="View on GitHub"
-          >
-            <ExternalLink className="h-5 w-5" />
-          </a>
+      <GripVertical className="h-4 w-4 text-muted-foreground" />
+    </button>
+    <img
+      src={user.avatar_url}
+      alt={`${user.login}'s avatar`}
+      className="h-8 w-8 rounded-full ring-1 ring-background object-cover"
+    />
+    <div className="flex-1 min-w-0">
+      <h3 className="font-medium truncate text-sm">{user.name || user.login}</h3>
+      <p className="text-xs text-muted-foreground truncate">@{user.login}</p>
+    </div>
+    <div className="flex items-center space-x-2">
+      {/* External Link Button */}
+      <a
+        href={user.html_url}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-gray-900 hover:text-accent"
+        aria-label="View on GitHub"
+      >
+        <ExternalLink className="h-5 w-5" />
+      </a>
 
-        <div className="flex items-center gap-1">
-          <Button
-            variant="ghost"
-            size="icon"
-            className="h-7 w-7 text-muted-foreground hover:text-accent"
-            asChild
-          >
-            <a
-              href={user.html_url}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="View on GitHub"
-            >
-              <ExternalLink className="h-3 w-3" />
-            </a>
-          </Button>
-          <Button
-            variant="ghost"
-            size="icon"
-            className="h-7 w-7 text-muted-foreground hover:text-red-500"
-            onClick={() => removeFavorite(user.id)}
-            aria-label="Remove from favorites"
-          >
-            <Heart className="h-3 w-3 fill-current" />
-          </Button>
-        </div>
+      <div className="flex items-center gap-1">
+        <Button
+          variant="ghost"
+          size="icon"
+          className="h-7 w-7 text-muted-foreground hover:text-accent"
+          asChild
+        >
+          {/* This button was redundant, we removed it */}
+        </Button>
+        <Button
+          variant="ghost"
+          size="icon"
+          className="h-7 w-7 text-muted-foreground hover:text-red-500"
+          onClick={() => removeFavorite(user.id)}
+          aria-label="Remove from favorites"
+        >
+          <Heart className="h-3 w-3 fill-current" />
+        </Button>
       </div>
-    </li>
+    </div>
+  </div>
+</li>
+
   );
 };
 
@@ -145,10 +141,6 @@ const FavoritesList: React.FC = () => {
   };
 
   return (
-    <Card className="h-full border-black rounded-xl">
-      <CardHeader>
-        <CardTitle className="text-2xl flex items-center gap-2">
-
     <Card className="shadow-sm hover:shadow-md transition-all duration-300 h-auto">
       <CardHeader className="pb-3">
         <CardTitle className="text-xl flex items-center gap-2">
