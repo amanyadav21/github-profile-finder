@@ -91,14 +91,14 @@ const Index = () => {
         </div>
       </main>
       
-      <footer className="bg-background border-t mt-auto py-4">
+      {/* <footer className="bg-background border-t mt-auto py-4">
         <div className="container mx-auto text-center text-gray-500 text-sm">
           <p>GitHub User Finder &copy; {new Date().getFullYear()}</p>
           <p className="text-xs mt-1">
             Uses the <a href="https://docs.github.com/en/rest" target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">GitHub API</a>
           </p>
         </div>
-      </footer>
+      </footer> */}
     </div>
   );
 };
