@@ -50,7 +50,8 @@ const Index = () => {
       <header className="bg-primary text-primary-foreground p-4 shadow-md">
         <div className="container mx-auto flex items-center gap-3">
           <Github className="h-6 w-6" />
-          <h1 className="text-2xl font-bold">GitHub User Finder</h1>
+          <h1 className="text-2xl font-bold cursor-pointer" 
+            onClick={() => window.location.reload()}>GitHub User Finder</h1>
         </div>
       </header>
       <main className="container mx-auto px-4 py-8">
