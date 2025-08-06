@@ -3,7 +3,9 @@ import React from 'react';
 import { GitHubUser, FavoriteUser } from '../types/GitHubUser';
 import { Card, CardContent, CardHeader } from './ui/card';
 import { Button } from './ui/button';
-import { Heart } from 'lucide-react';
+import { Badge } from './ui/badge';
+import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
+import { Heart, ExternalLink, MapPin, Building, Calendar, Users, GitFork, Star } from 'lucide-react';
 import { useFavorites } from '../context/FavoritesContext';
 import { cn } from '@/lib/utils';
 
@@ -31,66 +33,130 @@ const UserCard: React.FC<UserCardProps> = ({ user }) => {
   };
 
   return (
-    <Card className="w-full overflow-hidden shadow-md hover:shadow-lg transition-shadow">
-      <CardHeader className="relative p-4 pb-0">
+    <Card className="w-full overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 border-0 bg-gradient-to-br from-card to-card/50">
+      <CardHeader className="relative p-6 pb-4">
         <div className="absolute top-4 right-4">
           <Button
             variant="ghost"
             size="icon"
             className={cn(
-              "favorite-transition",
-              favorited ? "text-red-500 hover:text-red-400" : "text-gray-400 hover:text-gray-500"
+              "transition-all duration-300 hover:scale-110",
+              favorited 
+                ? "text-red-500 hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-950" 
+                : "text-muted-foreground hover:text-foreground hover:bg-muted"
             )}
             onClick={handleFavoriteToggle}
             aria-label={favorited ? "Remove from favorites" : "Add to favorites"}
           >
-            <Heart className={cn(favorited ? "fill-red-500" : "")} />
+            <Heart className={cn("h-5 w-5 transition-all", favorited && "fill-current")} />
           </Button>
         </div>
-        <div className="flex items-center gap-4">
-          <img
-            src={user.avatar_url}
-            alt={`${user.login}'s avatar`}
-            className="rounded-full h-16 w-16 object-cover"
-          />
-          <div>
-            <h2 className="text-xl font-semibold">{user.name || user.login}</h2>
-            <a
-              href={user.html_url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-accent hover:underline"
-            >
-              @{user.login}
-            </a>
+        
+        <div className="flex items-start gap-4">
+          <Avatar className="h-20 w-20 border-4 border-background shadow-lg">
+            <AvatarImage
+              src={user.avatar_url}
+              alt={`${user.login}'s avatar`}
+              className="object-cover"
+            />
+            <AvatarFallback className="text-lg font-semibold bg-gradient-to-br from-primary to-primary/80 text-primary-foreground">
+              {user.login.slice(0, 2).toUpperCase()}
+            </AvatarFallback>
+          </Avatar>
+          
+          <div className="flex-1 space-y-2">
+            <div>
+              <h2 className="text-2xl font-bold tracking-tight">
+                {user.name || user.login}
+              </h2>
+              <Button
+                variant="link"
+                className="p-0 h-auto text-muted-foreground hover:text-primary"
+                asChild
+              >
+                <a
+                  href={user.html_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-1"
+                >
+                  @{user.login}
+                  <ExternalLink className="h-3 w-3" />
+                </a>
+              </Button>
+            </div>
+            
+            {user.bio && (
+              <p className="text-muted-foreground leading-relaxed">{user.bio}</p>
+            )}
+            
+            <div className="flex flex-wrap gap-2">
+              {user.location && (
+                <Badge variant="secondary" className="gap-1">
+                  <MapPin className="h-3 w-3" />
+                  {user.location}
+                </Badge>
+              )}
+              {user.company && (
+                <Badge variant="outline" className="gap-1">
+                  <Building className="h-3 w-3" />
+                  {user.company}
+                </Badge>
+              )}
+              {user.created_at && (
+                <Badge variant="outline" className="gap-1">
+                  <Calendar className="h-3 w-3" />
+                  Joined {new Date(user.created_at).getFullYear()}
+                </Badge>
+              )}
+            </div>
           </div>
         </div>
       </CardHeader>
-      <CardContent className="p-4">
-        <div className="space-y-4">
-          {user.bio && (
-            <p className="text-gray-600 text-sm">{user.bio}</p>
-          )}
-          <div className="grid grid-cols-3 gap-2 text-center">
-            <div className="bg-secondary/50 rounded p-2">
-              <div className="text-lg font-semibold">{user.public_repos}</div>
-              <div className="text-xs text-gray-500">Repositories</div>
+      
+      <CardContent className="p-6 pt-0">
+        <div className="space-y-6">
+          <div className="grid grid-cols-3 gap-4">
+            <div className="text-center space-y-2">
+              <div className="p-4 rounded-lg bg-gradient-to-br from-blue-500/10 to-blue-600/10 border border-blue-500/20">
+                <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">
+                  {user.public_repos}
+                </div>
+                <div className="text-xs text-muted-foreground font-medium">
+                  Repositories
+                </div>
+              </div>
             </div>
-            <div className="bg-secondary/50 rounded p-2">
-              <div className="text-lg font-semibold">{user.followers}</div>
-              <div className="text-xs text-gray-500">Followers</div>
+            
+            <div className="text-center space-y-2">
+              <div className="p-4 rounded-lg bg-gradient-to-br from-green-500/10 to-green-600/10 border border-green-500/20">
+                <div className="text-2xl font-bold text-green-600 dark:text-green-400">
+                  {user.followers}
+                </div>
+                <div className="text-xs text-muted-foreground font-medium">
+                  Followers
+                </div>
+              </div>
             </div>
-            <div className="bg-secondary/50 rounded p-2">
-              <div className="text-lg font-semibold">{user.following}</div>
-              <div className="text-xs text-gray-500">Following</div>
+            
+            <div className="text-center space-y-2">
+              <div className="p-4 rounded-lg bg-gradient-to-br from-purple-500/10 to-purple-600/10 border border-purple-500/20">
+                <div className="text-2xl font-bold text-purple-600 dark:text-purple-400">
+                  {user.following}
+                </div>
+                <div className="text-xs text-muted-foreground font-medium">
+                  Following
+                </div>
+              </div>
             </div>
           </div>
+          
           <Button
-            variant="outline"
-            className="w-full"
+            className="w-full h-11 bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 transition-all duration-300"
             asChild
           >
             <a href={user.html_url} target="_blank" rel="noopener noreferrer">
+              <ExternalLink className="mr-2 h-4 w-4" />
               View GitHub Profile
             </a>
           </Button>

@@ -1,8 +1,11 @@
 import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { Button } from "./ui/button";
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import { Badge } from "./ui/badge";
 import { useFavorites } from "../context/FavoritesContext";
-import { Heart, ExternalLink, GripVertical } from "lucide-react";
+import { FavoriteUser } from "../types/GitHubUser";
+import { Heart, ExternalLink, GripVertical, Users } from "lucide-react";
 import { cn } from "@/lib/utils";
 import {
   DndContext,
@@ -50,64 +53,71 @@ const SortableItem: React.FC<SortableItemProps> = ({
       ref={setNodeRef}
       style={style}
       className={cn(
-        "group relative bg-white dark:bg-gray-800 rounded-lg p-3",
-        "border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md",
-        "bg-green-100 border-2 border-black",
-        isDragging && "opacity-50 scale-95 shadow-lg"
+        "group relative rounded-lg border border-border/50 bg-card/50 backdrop-blur-sm transition-all duration-200",
+        "hover:border-border hover:bg-card/80 hover:shadow-md",
+        isDragging && "opacity-60 scale-95 shadow-lg border-primary/50"
       )}
     >
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-3 p-4">
         {/* Drag Handle */}
         <button
-          className="cursor-grab touch-none p-1 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+          className="cursor-grab touch-none p-1 rounded-md hover:bg-muted/60 transition-colors opacity-60 group-hover:opacity-100"
           {...attributes}
           {...listeners}
           aria-label="Drag to reorder"
         >
-          <GripVertical className="h-5 w-5 text-gray-400 group-hover:text-gray-600 dark:group-hover:text-gray-300" />
+          <GripVertical className="h-4 w-4 text-muted-foreground" />
         </button>
 
         {/* User Avatar */}
-        <div className="relative flex-shrink-0">
-          <img
+        <Avatar className="h-10 w-10 border-2 border-background shadow-sm">
+          <AvatarImage
             src={user.avatar_url}
             alt={`${user.login}'s avatar`}
-            className="h-10 w-10 rounded-full border-2 border-white dark:border-gray-800 shadow-sm"
           />
-        </div>
+          <AvatarFallback className="text-sm font-semibold bg-gradient-to-br from-primary/20 to-primary/10">
+            {user.login.slice(0, 2).toUpperCase()}
+          </AvatarFallback>
+        </Avatar>
 
         {/* User Info */}
-        <div className="flex-1 min-w-0">
-          <h3 className="font-medium truncate text-gray-900 dark:text-white">
+        <div className="flex-1 min-w-0 space-y-1">
+          <h3 className="font-medium truncate text-foreground">
             {user.name || user.login}
           </h3>
-          <p className="text-sm truncate text-gray-500 dark:text-gray-400">
+          <p className="text-sm truncate text-muted-foreground">
             @{user.login}
           </p>
         </div>
 
         {/* Action Buttons */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1 opacity-60 group-hover:opacity-100 transition-opacity">
           {/* GitHub Link */}
-          <a
-            href={user.html_url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
-            aria-label="View on GitHub"
+          <Button
+            variant="ghost"
+            size="icon"
+            asChild
+            className="h-8 w-8 text-muted-foreground hover:text-foreground hover:bg-muted/60"
           >
-            <ExternalLink className="h-5 w-5 text-gray-500 hover:text-blue-600 dark:hover:text-blue-400" />
-          </a>
+            <a
+              href={user.html_url}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="View on GitHub"
+            >
+              <ExternalLink className="h-4 w-4" />
+            </a>
+          </Button>
 
           {/* Favorite Button */}
           <Button
             variant="ghost"
             size="icon"
-            className="p-2 rounded-md hover:bg-red-50 dark:hover:bg-red-900/30 transition-colors"
+            className="h-8 w-8 text-red-500 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-950/30 transition-colors"
             onClick={() => removeFavorite(user.id)}
             aria-label="Remove from favorites"
           >
-            <Heart className="h-5 w-5 fill-red-500 text-red-500 hover:fill-white dark:hover:fill-gray-800 transition-colors" />
+            <Heart className="h-4 w-4 fill-current" />
           </Button>
         </div>
       </div>
@@ -141,21 +151,32 @@ const FavoritesList: React.FC = () => {
   };
 
   return (
-    <Card className="shadow-sm hover:shadow-md transition-all duration-300 h-auto bg-yellow-200">
-      <CardHeader className="pb-3">
+    <Card className="shadow-lg hover:shadow-xl transition-all duration-300 border-0 bg-gradient-to-br from-card to-card/50">
+      <CardHeader className="pb-4">
         <CardTitle className="text-xl flex items-center gap-2">
-          <Heart className="h-5 w-5 text-red-500" />
-          Favorite Users
+          <div className="p-2 rounded-lg bg-gradient-to-br from-red-500/10 to-pink-500/10 border border-red-500/20">
+            <Heart className="h-5 w-5 text-red-500" />
+          </div>
+          Favorite Developers
+          {favorites.length > 0 && (
+            <Badge variant="secondary" className="ml-auto">
+              {favorites.length}
+            </Badge>
+          )}
         </CardTitle>
       </CardHeader>
-      <CardContent className="overflow-auto max-h-[calc(100vh-10rem)]">
+      <CardContent className="overflow-auto max-h-[calc(100vh-12rem)]">
         {favorites.length === 0 ? (
-          <div className="text-center py-8 text-gray-500">
-            <Heart className="h-12 w-12 mx-auto mb-3 stroke-1" />
-            <p>No favorites yet</p>
-            <p className="text-sm mt-1">
-              Search for GitHub users and add them to your favorites
-            </p>
+          <div className="text-center py-12 space-y-4">
+            <div className="mx-auto w-16 h-16 rounded-full bg-gradient-to-br from-muted to-muted/50 flex items-center justify-center">
+              <Users className="h-8 w-8 text-muted-foreground" />
+            </div>
+            <div className="space-y-2">
+              <h3 className="font-medium text-foreground">No favorites yet</h3>
+              <p className="text-sm text-muted-foreground max-w-sm mx-auto">
+                Search for GitHub users and click the heart icon to add them to your favorites
+              </p>
+            </div>
           </div>
         ) : (
           <DndContext
