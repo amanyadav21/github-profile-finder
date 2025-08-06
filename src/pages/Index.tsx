@@ -54,18 +54,18 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background to-background/80">
+    <div className="min-h-screen bg-background">
       <Header onRefresh={refreshPage} />
       
       <main className="container mx-auto px-4 py-8 max-w-7xl">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2 space-y-8">
             {/* Search Section */}
-            <Card className="border-0 shadow-lg bg-gradient-to-br from-card to-card/50">
+            <Card className="bg-card border border-border shadow-sm">
               <CardHeader className="pb-4">
-                <CardTitle className="text-2xl flex items-center gap-3">
-                  <div className="p-2 rounded-lg bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/20">
-                    <Search className="h-6 w-6 text-primary" />
+                <CardTitle className="text-2xl flex items-center gap-3 text-card-foreground">
+                  <div className="p-2 rounded-lg bg-muted border border-border">
+                    <Search className="h-6 w-6 text-foreground" />
                   </div>
                   Discover GitHub Developers
                 </CardTitle>
@@ -80,23 +80,23 @@ const Index = () => {
             
             {/* Loading State */}
             {isLoading && (
-              <Card className="border-0 shadow-lg">
+              <Card className="bg-card border border-border shadow-sm">
                 <CardContent className="pt-6">
                   <div className="space-y-4">
                     <div className="flex items-center gap-4">
-                      <Skeleton className="h-20 w-20 rounded-full" />
+                      <Skeleton className="h-20 w-20 rounded-full bg-muted" />
                       <div className="space-y-2 flex-1">
-                        <Skeleton className="h-6 w-48" />
-                        <Skeleton className="h-4 w-32" />
+                        <Skeleton className="h-6 w-48 bg-muted" />
+                        <Skeleton className="h-4 w-32 bg-muted" />
                       </div>
                     </div>
-                    <Skeleton className="h-4 w-full" />
+                    <Skeleton className="h-4 w-full bg-gray-200" />
                     <div className="grid grid-cols-3 gap-4">
-                      <Skeleton className="h-16 rounded-lg" />
-                      <Skeleton className="h-16 rounded-lg" />
-                      <Skeleton className="h-16 rounded-lg" />
+                      <Skeleton className="h-16 rounded-lg bg-gray-200" />
+                      <Skeleton className="h-16 rounded-lg bg-gray-200" />
+                      <Skeleton className="h-16 rounded-lg bg-gray-200" />
                     </div>
-                    <Skeleton className="h-11 w-full" />
+                    <Skeleton className="h-11 w-full bg-gray-200" />
                   </div>
                 </CardContent>
               </Card>
@@ -104,15 +104,15 @@ const Index = () => {
             
             {/* Error State */}
             {error && !isLoading && (
-              <Card className="shadow-lg bg-gradient-to-br from-destructive/5 to-destructive/10 border-destructive/20">
+              <Card className="bg-white border border-red-200 shadow-sm">
                 <CardContent className="pt-6">
                   <div className="flex items-center gap-3 text-center justify-center py-8">
-                    <div className="p-2 rounded-full bg-destructive/10">
-                      <AlertCircle className="h-6 w-6 text-destructive" />
+                    <div className="p-2 rounded-full bg-red-50">
+                      <AlertCircle className="h-6 w-6 text-red-600" />
                     </div>
                     <div>
-                      <h3 className="font-medium text-destructive">Search Error</h3>
-                      <p className="text-destructive/80 text-sm">{error}</p>
+                      <h3 className="font-medium text-red-800">Search Error</h3>
+                      <p className="text-red-600 text-sm">{error}</p>
                     </div>
                   </div>
                 </CardContent>

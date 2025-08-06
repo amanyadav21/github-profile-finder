@@ -53,15 +53,15 @@ const SortableItem: React.FC<SortableItemProps> = ({
       ref={setNodeRef}
       style={style}
       className={cn(
-        "group relative rounded-lg border border-border/50 bg-card/50 backdrop-blur-sm transition-all duration-200",
-        "hover:border-border hover:bg-card/80 hover:shadow-md",
-        isDragging && "opacity-60 scale-95 shadow-lg border-primary/50"
+        "group relative rounded-lg border border-border bg-card transition-all duration-200",
+        "hover:border-border hover:bg-muted hover:shadow-md",
+        isDragging && "opacity-60 scale-95 shadow-lg border-primary"
       )}
     >
       <div className="flex items-center gap-3 p-4">
         {/* Drag Handle */}
         <button
-          className="cursor-grab touch-none p-1 rounded-md hover:bg-muted/60 transition-colors opacity-60 group-hover:opacity-100"
+          className="cursor-grab touch-none p-1 rounded-md hover:bg-muted transition-colors opacity-60 group-hover:opacity-100"
           {...attributes}
           {...listeners}
           aria-label="Drag to reorder"
@@ -70,19 +70,19 @@ const SortableItem: React.FC<SortableItemProps> = ({
         </button>
 
         {/* User Avatar */}
-        <Avatar className="h-10 w-10 border-2 border-background shadow-sm">
+        <Avatar className="h-10 w-10 border-2 border-border shadow-sm">
           <AvatarImage
             src={user.avatar_url}
             alt={`${user.login}'s avatar`}
           />
-          <AvatarFallback className="text-sm font-semibold bg-gradient-to-br from-primary/20 to-primary/10">
+          <AvatarFallback className="text-sm font-semibold bg-primary text-primary-foreground">
             {user.login.slice(0, 2).toUpperCase()}
           </AvatarFallback>
         </Avatar>
 
         {/* User Info */}
         <div className="flex-1 min-w-0 space-y-1">
-          <h3 className="font-medium truncate text-foreground">
+          <h3 className="font-medium truncate text-card-foreground">
             {user.name || user.login}
           </h3>
           <p className="text-sm truncate text-muted-foreground">
@@ -97,7 +97,7 @@ const SortableItem: React.FC<SortableItemProps> = ({
             variant="ghost"
             size="icon"
             asChild
-            className="h-8 w-8 text-muted-foreground hover:text-foreground hover:bg-muted/60"
+            className="h-8 w-8 text-muted-foreground hover:text-foreground hover:bg-muted"
           >
             <a
               href={user.html_url}
@@ -113,7 +113,7 @@ const SortableItem: React.FC<SortableItemProps> = ({
           <Button
             variant="ghost"
             size="icon"
-            className="h-8 w-8 text-red-500 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-950/30 transition-colors"
+            className="h-8 w-8 text-red-500 hover:text-red-400 hover:bg-red-950/30 transition-colors"
             onClick={() => removeFavorite(user.id)}
             aria-label="Remove from favorites"
           >
@@ -151,10 +151,10 @@ const FavoritesList: React.FC = () => {
   };
 
   return (
-    <Card className="shadow-lg hover:shadow-xl transition-all duration-300 border-0 bg-gradient-to-br from-card to-card/50">
+    <Card className="shadow-lg hover:shadow-xl transition-all duration-300 bg-card border border-border">
       <CardHeader className="pb-4">
-        <CardTitle className="text-xl flex items-center gap-2">
-          <div className="p-2 rounded-lg bg-gradient-to-br from-red-500/10 to-pink-500/10 border border-red-500/20">
+        <CardTitle className="text-xl flex items-center gap-2 text-card-foreground">
+          <div className="p-2 rounded-lg bg-muted border border-border">
             <Heart className="h-5 w-5 text-red-500" />
           </div>
           Favorite Developers
@@ -168,11 +168,11 @@ const FavoritesList: React.FC = () => {
       <CardContent className="overflow-auto max-h-[calc(100vh-12rem)]">
         {favorites.length === 0 ? (
           <div className="text-center py-12 space-y-4">
-            <div className="mx-auto w-16 h-16 rounded-full bg-gradient-to-br from-muted to-muted/50 flex items-center justify-center">
+            <div className="mx-auto w-16 h-16 rounded-full bg-muted border border-border flex items-center justify-center">
               <Users className="h-8 w-8 text-muted-foreground" />
             </div>
             <div className="space-y-2">
-              <h3 className="font-medium text-foreground">No favorites yet</h3>
+              <h3 className="font-medium text-card-foreground">No favorites yet</h3>
               <p className="text-sm text-muted-foreground max-w-sm mx-auto">
                 Search for GitHub users and click the heart icon to add them to your favorites
               </p>

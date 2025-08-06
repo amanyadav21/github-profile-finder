@@ -73,14 +73,14 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch, isLoading }) => {
             value={username}
             onChange={handleInputChange}
             placeholder="Enter GitHub username (e.g., octocat)"
-            className="pl-10 h-11 bg-background/50 border-border/50 focus:border-primary/50 focus:bg-background transition-all"
+            className="pl-10 h-11 bg-input border-border focus:border-primary text-foreground"
             disabled={isLoading}
           />
         </div>
         <Button 
           type="submit" 
           disabled={isLoading || !username.trim()}
-          className="h-11 px-6 bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 transition-all duration-300"
+          className="h-11 px-6 bg-primary hover:bg-primary/90 text-primary-foreground transition-all duration-300"
         >
           {isLoading ? (
             <div className="h-4 w-4 animate-spin rounded-full border-2 border-primary-foreground border-t-transparent" />

@@ -33,7 +33,7 @@ const UserCard: React.FC<UserCardProps> = ({ user }) => {
   };
 
   return (
-    <Card className="w-full overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 border-0 bg-gradient-to-br from-card to-card/50">
+    <Card className="w-full overflow-hidden bg-card border border-border shadow-lg hover:shadow-xl transition-all duration-300">
       <CardHeader className="relative p-6 pb-4">
         <div className="absolute top-4 right-4">
           <Button
@@ -42,7 +42,7 @@ const UserCard: React.FC<UserCardProps> = ({ user }) => {
             className={cn(
               "transition-all duration-300 hover:scale-110",
               favorited 
-                ? "text-red-500 hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-950" 
+                ? "text-red-500 hover:text-red-400 hover:bg-red-950/30" 
                 : "text-muted-foreground hover:text-foreground hover:bg-muted"
             )}
             onClick={handleFavoriteToggle}
@@ -53,25 +53,25 @@ const UserCard: React.FC<UserCardProps> = ({ user }) => {
         </div>
         
         <div className="flex items-start gap-4">
-          <Avatar className="h-20 w-20 border-4 border-background shadow-lg">
+          <Avatar className="h-20 w-20 border-4 border-border shadow-lg">
             <AvatarImage
               src={user.avatar_url}
               alt={`${user.login}'s avatar`}
               className="object-cover"
             />
-            <AvatarFallback className="text-lg font-semibold bg-gradient-to-br from-primary to-primary/80 text-primary-foreground">
+            <AvatarFallback className="text-lg font-semibold bg-primary text-primary-foreground">
               {user.login.slice(0, 2).toUpperCase()}
             </AvatarFallback>
           </Avatar>
           
           <div className="flex-1 space-y-2">
             <div>
-              <h2 className="text-2xl font-bold tracking-tight">
+              <h2 className="text-2xl font-bold tracking-tight text-card-foreground">
                 {user.name || user.login}
               </h2>
               <Button
                 variant="link"
-                className="p-0 h-auto text-muted-foreground hover:text-primary"
+                className="p-0 h-auto text-muted-foreground hover:text-foreground"
                 asChild
               >
                 <a
@@ -118,8 +118,8 @@ const UserCard: React.FC<UserCardProps> = ({ user }) => {
         <div className="space-y-6">
           <div className="grid grid-cols-3 gap-4">
             <div className="text-center space-y-2">
-              <div className="p-4 rounded-lg bg-gradient-to-br from-blue-500/10 to-blue-600/10 border border-blue-500/20">
-                <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">
+              <div className="p-4 rounded-lg bg-muted border border-border">
+                <div className="text-2xl font-bold text-foreground">
                   {user.public_repos}
                 </div>
                 <div className="text-xs text-muted-foreground font-medium">
@@ -129,8 +129,8 @@ const UserCard: React.FC<UserCardProps> = ({ user }) => {
             </div>
             
             <div className="text-center space-y-2">
-              <div className="p-4 rounded-lg bg-gradient-to-br from-green-500/10 to-green-600/10 border border-green-500/20">
-                <div className="text-2xl font-bold text-green-600 dark:text-green-400">
+              <div className="p-4 rounded-lg bg-muted border border-border">
+                <div className="text-2xl font-bold text-foreground">
                   {user.followers}
                 </div>
                 <div className="text-xs text-muted-foreground font-medium">
@@ -140,11 +140,11 @@ const UserCard: React.FC<UserCardProps> = ({ user }) => {
             </div>
             
             <div className="text-center space-y-2">
-              <div className="p-4 rounded-lg bg-gradient-to-br from-purple-500/10 to-purple-600/10 border border-purple-500/20">
-                <div className="text-2xl font-bold text-purple-600 dark:text-purple-400">
+              <div className="p-4 rounded-lg bg-gray-50 border border-gray-200">
+                <div className="text-2xl font-bold text-black">
                   {user.following}
                 </div>
-                <div className="text-xs text-muted-foreground font-medium">
+                <div className="text-xs text-gray-600 font-medium">
                   Following
                 </div>
               </div>

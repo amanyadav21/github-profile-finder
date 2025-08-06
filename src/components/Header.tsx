@@ -9,15 +9,15 @@ interface HeaderProps {
 
 export function Header({ onRefresh }: HeaderProps) {
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/90">
       <div className="container mx-auto flex h-16 max-w-screen-2xl items-center">
         <div className="mr-4 hidden md:flex">
           <button 
             onClick={onRefresh}
-            className="mr-6 flex items-center space-x-2 hover:opacity-80 transition-opacity cursor-pointer"
+            className="mr-6 flex items-center space-x-2 hover:opacity-70 transition-opacity cursor-pointer"
           >
-            <Github className="h-6 w-6" />
-            <span className="hidden font-bold sm:inline-block">
+            <Github className="h-6 w-6 text-foreground" />
+            <span className="hidden font-bold sm:inline-block text-foreground">
               Git-User Finder
             </span>
           </button>
@@ -33,7 +33,7 @@ export function Header({ onRefresh }: HeaderProps) {
               variant="ghost"
               size="sm"
               asChild
-              className="text-foreground/60 hover:text-foreground"
+              className="text-muted-foreground hover:text-foreground hover:bg-muted"
             >
               <a
                 href="https://github.com/amanyadav21/github-profile-finder"
