@@ -90,13 +90,11 @@ const Index = () => {
                         <Skeleton className="h-4 w-32 bg-muted" />
                       </div>
                     </div>
-                    <Skeleton className="h-4 w-full bg-gray-200" />
                     <div className="grid grid-cols-3 gap-4">
-                      <Skeleton className="h-16 rounded-lg bg-gray-200" />
-                      <Skeleton className="h-16 rounded-lg bg-gray-200" />
-                      <Skeleton className="h-16 rounded-lg bg-gray-200" />
+                      <Skeleton className="h-16 rounded-lg bg-muted" />
+                      <Skeleton className="h-16 rounded-lg bg-muted" />
+                      <Skeleton className="h-16 rounded-lg bg-muted" />
                     </div>
-                    <Skeleton className="h-11 w-full bg-gray-200" />
                   </div>
                 </CardContent>
               </Card>
@@ -104,15 +102,15 @@ const Index = () => {
             
             {/* Error State */}
             {error && !isLoading && (
-              <Card className="bg-white border border-red-200 shadow-sm">
+              <Card className="bg-card border border-destructive shadow-sm">
                 <CardContent className="pt-6">
                   <div className="flex items-center gap-3 text-center justify-center py-8">
-                    <div className="p-2 rounded-full bg-red-50">
-                      <AlertCircle className="h-6 w-6 text-red-600" />
+                    <div className="p-2 rounded-full bg-destructive/10">
+                      <AlertCircle className="h-6 w-6 text-destructive" />
                     </div>
                     <div>
-                      <h3 className="font-medium text-red-800">Search Error</h3>
-                      <p className="text-red-600 text-sm">{error}</p>
+                      <h3 className="font-medium text-destructive">Search Error</h3>
+                      <p className="text-destructive/80 text-sm">{error}</p>
                     </div>
                   </div>
                 </CardContent>

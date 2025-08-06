@@ -1,9 +1,8 @@
 
-import React, { useState, useCallback, useRef } from 'react';
+import React, { useState, useCallback } from 'react';
 import { Input } from './ui/input';
 import { Button } from './ui/button';
 import { Search } from 'lucide-react';
-import { useToast } from '@/components/ui/use-toast';
 import debounce from 'lodash/debounce';
 import SearchSuggestions from './SearchSuggestions';
 
@@ -16,7 +15,6 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch, isLoading }) => {
   const [username, setUsername] = useState('');
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const [isSuggestionsLoading, setIsSuggestionsLoading] = useState(false);
-  const { toast } = useToast();
 
   const fetchSuggestions = async (query: string) => {
     if (!query || query.length < 2) {
@@ -39,8 +37,10 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch, isLoading }) => {
   };
 
   const debouncedFetchSuggestions = useCallback(
-    debounce((query: string) => fetchSuggestions(query), 300),
-    []
+    debounce((query: string) => {
+      fetchSuggestions(query);
+    }, 300),
+    [fetchSuggestions]
   );
 
   const handleSubmit = (e: React.FormEvent) => {

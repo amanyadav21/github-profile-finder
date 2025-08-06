@@ -1,7 +1,5 @@
-import { Github, Star, Users } from "lucide-react";
+import { Github } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
 
 interface HeaderProps {
   onRefresh?: () => void;
